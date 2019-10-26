@@ -2,8 +2,8 @@
 
   "builders": [{
 
-    "name": "andesrv1",
-    "vm_name": "andesrv1",
+    "name": "ubu16",
+    "vm_name": "ubu16",
     "type": "vmware-iso",
     "guest_os_type": "ubuntu-64",
     "tools_upload_flavor": "linux",
@@ -18,8 +18,8 @@
     "iso_checksum": "ac8a79a86a905ebdc3ef3f5dd16b7360",
     "iso_checksum_type": "md5",
 
-    "ssh_username": "anderta1",
-    "ssh_password": "13Apollo11",
+    "ssh_username": "username",
+    "ssh_password": "password",
     "ssh_timeout": "15m",
 
     "floppy_files": [
@@ -42,10 +42,10 @@
       "initrd=/install/initrd.gz -- <enter>"
     ],
 
-	"ssh_username": "anderta1",
-    "ssh_password": "13Apollo11",
+    "ssh_username": "username",
+    "ssh_password": "password",
     "ssh_timeout": "15m",
-    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo '13Apollo11'|sudo -S sh 'shutdown.sh'",
+    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'password'|sudo -S sh 'shutdown.sh'",
 	
     "remote_type": "esx5",
     "remote_host": "{{user `esxi_host`}}",
@@ -66,7 +66,7 @@
         "setup_things.sh"
       ],
 
-      "execute_command": "echo '13Apollo11' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+      "execute_command": "echo 'password' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
 	  "expect_disconnect": true
     }
 
