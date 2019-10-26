@@ -1,0 +1,75 @@
+{
+
+  "builders": [{
+
+    "name": "andesrv1",
+    "vm_name": "andesrv1",
+    "type": "vmware-iso",
+    "guest_os_type": "ubuntu-64",
+    "tools_upload_flavor": "linux",
+    "headless": false,
+    "vnc_disable_password": true,
+	"cpus": 2,
+	"memory": 2048,
+	"disk_size": 20000,
+    "disk_type_id": "thin",
+
+    "iso_url": "http://releases.ubuntu.com/xenial/ubuntu-16.04.6-server-amd64.iso",
+    "iso_checksum": "ac8a79a86a905ebdc3ef3f5dd16b7360",
+    "iso_checksum_type": "md5",
+
+    "ssh_username": "anderta1",
+    "ssh_password": "13Apollo11",
+    "ssh_timeout": "15m",
+
+    "floppy_files": [
+      "ubuntu.cfg"
+    ],
+
+    "boot_command": [
+      "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "/install/vmlinuz noapic ",
+      "preseed/file=/floppy/ubuntu.cfg ",
+      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "hostname={{ .Name }} ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+      "grub-installer/bootdev=/dev/sda ",
+      "initrd=/install/initrd.gz -- <enter>"
+    ],
+
+	"ssh_username": "anderta1",
+    "ssh_password": "13Apollo11",
+    "ssh_timeout": "15m",
+    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo '13Apollo11'|sudo -S sh 'shutdown.sh'",
+	
+    "remote_type": "esx5",
+    "remote_host": "{{user `esxi_host`}}",
+    "remote_datastore": "{{user `esxi_datastore`}}",
+    "remote_username": "{{user `esxi_username`}}",
+    "remote_password": "{{user `esxi_password`}}",
+    "keep_registered": true,
+
+    "vmx_data": {
+      "ethernet0.networkName": "VM Network"
+    }
+  }],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "setup_things.sh"
+      ],
+
+      "execute_command": "echo '13Apollo11' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+	  "expect_disconnect": true
+    }
+
+  ]
+
+}
