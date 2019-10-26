@@ -1,6 +1,6 @@
 {
-  "esxi_host": "10.0.0.6",
-  "esxi_datastore": "datastore1",
+  "esxi_host": "10.0.0.0",
+  "esxi_datastore": "datastore",
   "esxi_username": "root",
   "esxi_password": "password"
 }
